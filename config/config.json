@@ -1,0 +1,12 @@
+{
+  "development": {
+    "username": "hadiqasumbalarshad",
+    "password": 11223344,
+    "database": "signup",
+    "host": "localhost",
+    "dialect": "postgres"
+  }
+  
+}
+
+
