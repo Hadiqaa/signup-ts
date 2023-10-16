@@ -1,7 +1,15 @@
 import { DataTypes, Model } from "sequelize";
 import sequelize from '../config/database';
 
-class User extends Model {
+interface User {
+  id: number;
+  username: string;
+  email: string;
+  password: string;
+}
+
+
+class UserModel extends Model implements User {
 
   public id! : number;
   public username!: string;
@@ -10,7 +18,7 @@ class User extends Model {
 
 }
 
-User.init(
+UserModel.init(
   {
     username: {
       type: DataTypes.STRING,
@@ -32,4 +40,4 @@ User.init(
   }
 );
 
-export default User;
+export default UserModel;
