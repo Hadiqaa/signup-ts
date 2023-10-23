@@ -3,6 +3,7 @@ import authRoutes from './routes/auth.route';
 import { Sequelize, DataTypes } from 'sequelize';
 import {Client} from 'pg';
 import bodyparser  from 'body-parser';
+import router from './routes/index'; 
 
 
 
@@ -33,7 +34,7 @@ app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({ extended: true }))
 
 
-app.use('/auth', authRoutes);
+app.use(router);
 
 
 

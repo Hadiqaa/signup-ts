@@ -1,7 +1,7 @@
 import { DataTypes, Model } from "sequelize";
 import sequelize from '../config/database';
 
-interface User {
+interface UserModel { 
   id: number;
   username: string;
   email: string;
@@ -9,16 +9,40 @@ interface User {
 }
 
 
-class UserModel extends Model implements User {
+class User extends Model implements UserModel {
 
   public id! : number;
   public username!: string;
   public email!: string;
   public password!: string;
 
+
+  public static associate(models: any): void {
+    User.hasMany(models.Message, {
+      foreignKey: 'sender_id',
+      as: 'messages',
+    });
+
+    User.hasMany(models.Groups, {
+      foreignKey: 'creator_id',
+      as: 'groups',
+    });
+
+    User.hasMany(models.Attachments, {
+      foreignKey: 'creator_id',
+      as: 'attachments',
+    });
+
+    User.hasMany(models.Group_participants, {
+      foreignKey: 'user_id',
+      as: 'group_participants',
+    });
+  }
+
+
 }
 
-UserModel.init(
+User.init(
   {
     username: {
       type: DataTypes.STRING,
@@ -40,4 +64,4 @@ UserModel.init(
   }
 );
 
-export default UserModel;
+export default User;
