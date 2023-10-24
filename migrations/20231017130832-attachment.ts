@@ -21,10 +21,12 @@ module.exports = {
       creator_id : {
         type: DataTypes.INTEGER.UNSIGNED ,
         allowNull: false,
+        references: { model: 'Users', key: 'id' }
       },
       message_id : {
         type: DataTypes.INTEGER.UNSIGNED ,
         allowNull: false,
+        references: { model: 'Message', key: 'id' }
       },
       createdAt: {
         allowNull: false,

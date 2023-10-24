@@ -56,6 +56,7 @@ interface AttachmentModelAttributes {
     } , {
     sequelize,
     modelName: 'Attachments',
+    tableName: 'Attachment'
     }
   );
 

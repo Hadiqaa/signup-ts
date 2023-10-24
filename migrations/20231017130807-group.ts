@@ -17,8 +17,9 @@ module.exports = {
         type: DataTypes.STRING
       },
       creator_id : {
-        type: DataTypes.INTEGER.UNSIGNED ,
+        type: DataTypes.INTEGER ,
         allowNull: false,
+        references: { model: 'Users', key: 'id' }
       },
       createdAt: {
         allowNull: false,

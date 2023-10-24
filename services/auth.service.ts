@@ -1,6 +1,6 @@
 import bcrypt from 'bcrypt';
 import User from '../models/user.model';
-import generateToken from '../helpers/generatetoken';
+import { generateToken } from '../helpers/generatetoken';
 
 interface AuthServiceInterface {
   signup( username: string, email: string,password: string ): Promise<{ id: number; username: string; email: string }>;

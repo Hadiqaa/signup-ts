@@ -28,10 +28,10 @@ interface MessageModelAttributes {
       as: 'attachments',
     });
 
-    Message.belongsTo(models.Groups, {
-      foreignKey: 'group_id',
-      as: 'groups',
-    });
+    // Message.belongsTo(models.Groups, {
+    //   foreignKey: 'group_id',
+    //   as: 'groups',
+    // });
   }
 
   };
@@ -52,11 +52,12 @@ interface MessageModelAttributes {
         },
         group_id: {
           type: DataTypes.INTEGER,
-          allowNull: false,
+          allowNull: true,
         },
     } , {
     sequelize,
     modelName: 'Message',
+    tableName: 'Message'
     }
   );
 

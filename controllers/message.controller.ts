@@ -1,11 +1,18 @@
 import { Request, Response } from 'express';
-import * as  MessageService from '../services/message.service';
+import  MessageService from '../services/message.service';
 
- const sendMessage = async (req: Request, res: Response): Promise<void> => {
+interface CustomRequest extends Request {
+  user?: any;
+}
+
+ const sendMessage = async (req: CustomRequest, res: Response): Promise<void> => {
   try {
-    const { senderId, receiverId, text } = req.body;
+    console.log('request.body here...');
+    console.log(req.body);
+    const { receiverId, text } = req.body;
+    const user = req.user;
 
-    const message = await MessageService.sendMessage(senderId, receiverId, text);
+    const message = await MessageService.sendMessage(user?.dataValues?.id, receiverId, text);
 
     res.status(200).json({ message: 'Message sent successfully', data: message });
   } catch (error:any) {
@@ -26,4 +33,4 @@ import * as  MessageService from '../services/message.service';
   }
 };
 
-export { sendMessage, getGroupMessages };
+export default { sendMessage, getGroupMessages };

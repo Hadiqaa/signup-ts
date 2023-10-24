@@ -20,22 +20,27 @@ class User extends Model implements UserModel {
   public static associate(models: any): void {
     User.hasMany(models.Message, {
       foreignKey: 'sender_id',
-      as: 'messages',
+      as: 'sent_message',
+    });
+
+    User.hasMany(models.Message, {
+      foreignKey: 'receiver_id',
+      as: 'received_message',
     });
 
     User.hasMany(models.Groups, {
       foreignKey: 'creator_id',
-      as: 'groups',
+      as: 'group',
     });
 
     User.hasMany(models.Attachments, {
       foreignKey: 'creator_id',
-      as: 'attachments',
+      as: 'attachment',
     });
 
-    User.hasMany(models.Group_participants, {
+    User.hasMany(models.GroupMember, {
       foreignKey: 'user_id',
-      as: 'group_participants',
+      as: 'groupmember',
     });
   }
 
@@ -61,6 +66,7 @@ User.init(
   {
     sequelize,
     modelName: 'User',
+    tableName: 'Users'
   }
 );
 

@@ -14,11 +14,13 @@ module.exports = {
       group_id : {
         type: DataTypes.INTEGER.UNSIGNED ,
         allowNull: false,
+        references: { model: 'Group', key: 'id' }
       },
   
       user_id : {
         type: DataTypes.INTEGER.UNSIGNED ,
         allowNull: false,
+        references: { model: 'Users', key: 'id' }
       },
       createdAt: {
         allowNull: false,

@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import jwt, { Secret } from 'jsonwebtoken';
+import jwt, { Secret, JwtPayload } from 'jsonwebtoken';
 import  User from '../models/user.model'; 
 
 interface CustomRequest extends Request {
@@ -14,7 +14,7 @@ const protect = async (req: CustomRequest, res: Response, next: NextFunction): P
     try {
       token = req.headers.authorization.split(' ')[1];
 
-      const decoded: any = jwt.verify(token, process.env.JWT_SECRET as Secret); // Adjust the type of 'decoded' based on your JWT payload structure
+      const decoded: any = jwt.verify(token, process.env.JWT_SECRET as Secret); 
       req.user = await User.findByPk(decoded.id, {
         attributes: { exclude: ['password'] }, 
       });
@@ -30,4 +30,4 @@ const protect = async (req: CustomRequest, res: Response, next: NextFunction): P
   }
 };
 
-export { protect };
+export default protect ;

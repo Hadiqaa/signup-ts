@@ -17,14 +17,17 @@ module.exports = {
       sender_id : {
         type: DataTypes.INTEGER.UNSIGNED ,
         allowNull: false,
+        references: { model: 'Users', key: 'id' }
       },
       group_id : {
         type: DataTypes.INTEGER.UNSIGNED ,
-        allowNull: false,
+        allowNull: true,
+        references: { model: 'Group', key: 'id' }
       },
       reciever_id : {
         type: DataTypes.INTEGER.UNSIGNED ,
         allowNull: false,
+        references: { model: 'Users', key: 'id' }
       },
       createdAt: {
         allowNull: false,

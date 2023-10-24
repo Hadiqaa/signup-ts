@@ -19,12 +19,12 @@ interface GroupMemberModelAttributes {
 
     GroupMember.belongsTo(models.Groups, {
         foreignKey: 'group_id',
-        as: 'groups',
+        as: 'Group',
       });
   
     GroupMember.belongsTo(models.User, {
         foreignKey: 'user_id',
-        as: 'user',
+        as: 'User',
       });
   }
 
@@ -43,6 +43,7 @@ interface GroupMemberModelAttributes {
     } , {
     sequelize,
     modelName: 'GroupMember',
+    tableName: 'GroupMember'
     }
   );
 

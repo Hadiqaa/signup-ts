@@ -18,7 +18,7 @@ interface GroupModelAttributes {
    public static associate(models: any): void {
     Group.hasMany(models.Message, {
         foreignKey: 'group_id',
-        as: 'messages',
+        as: 'message',
       });
   
     Group.belongsTo(models.User, {
@@ -42,6 +42,7 @@ interface GroupModelAttributes {
     } , {
     sequelize,
     modelName: 'Group',
+    tableName: 'Group'
     }
   );
 
