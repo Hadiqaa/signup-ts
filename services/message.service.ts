@@ -1,62 +1,73 @@
 import { Model, DataTypes } from 'sequelize';
 import { sequelize } from '../models'; // Assuming you have a Sequelize instance defined in a database file.
 import Message from '../models/message.model';
-// class Message extends Model {
-//   public id!: number;
-//   public senderId!: number;
-//   public receiverId!: number;
-//   public text!: string;
-//   public createdAt!: Date;
-//   public updatedAt!: Date;
-// }
 
-// Message.init(
-//   {
-//     senderId: {
-//       type: DataTypes.INTEGER,
-//       allowNull: false,
-//     },
-//     receiverId: {
-//       type: DataTypes.INTEGER,
-//       allowNull: false,
-//     },
-//     text: {
-//       type: DataTypes.TEXT,
-//       allowNull: false,
-//     },
-//   },
-//   {
-//     sequelize,
-//     modelName: 'Message',
-//   }
-// );
 
-const sendMessage = async (senderId: number, receiverId: number, text: string):Promise<Message>=>  {
+const sendMessage = async (senderId: number, receiverId: number, text: string, group_id?:number):Promise<Message>=>  {
   console.log("==============>", senderId, receiverId);
   try {
+    if (group_id) {
+    
+    const message = await Message.create({
+      sender_id: senderId,
+      group_id,  
+      text,
+      });
+      return message;
+
+  } else {
+
     const message = await Message.create({
       sender_id : senderId,
       reciever_id: receiverId,
       text,
-    });
-    return message;
+      });
+      return message;
+  } 
+
   } catch (error) {
     console.error('Error sending message:', error);
     throw error;
   }
 };
 
-const getGroupMessages = async (groupId: number): Promise<Message[]> => {
+
+
+
+const getMessagesForGroup = async (group_id: number): Promise<Message[]> => {
   try {
-    const groupMessages = await Message.findAll({
-      where: { group_id: groupId },
-      order: [['createdAt', 'DESC']],
+    const messages = await Message.findAll({
+      where: { group_id },
+      // order: [['createdAt', 'DESC']], 
     });
-    return groupMessages;
+
+    return messages;
   } catch (error) {
-    console.error('Error getting group messages', error);
-    throw new Error('Error getting group messages');
+    console.error('Error retrieving messages for the group', error);
+    throw error;
   }
 };
 
-export default{ sendMessage, getGroupMessages };
+
+const getMessagesBetweenUsers = async (senderId: number, receiverId: number): Promise<Message[]> => {
+  try {
+    const messages = await Message.findAll({
+      where: {
+        sender_id: senderId,
+        reciever_id: receiverId,
+        // order: [['createdAt', 'DESC']],
+      },
+    });
+
+    return messages;
+  } catch (error) {
+    console.error('Error retrieving messages between users', error);
+    throw error;
+  }
+};
+
+
+
+
+
+export default{ sendMessage, getMessagesForGroup, getMessagesBetweenUsers };

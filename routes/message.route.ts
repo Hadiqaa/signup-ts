@@ -4,6 +4,6 @@ const router: Router = express.Router();
 import protect from '../middleware/authentication';
 
 router.post('/createmessage', protect,  messageController.sendMessage) ;
-router.get('/groups/:group_id/messages');
-
+router.get('/groupmessages', protect, messageController.getGroupMessages);
+router.get('/usermessages', protect , messageController.getMessagesOfUsers)
 export default router;

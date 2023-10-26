@@ -4,14 +4,14 @@ import sequelize from '../config/database';
 
 interface GroupModelAttributes {
     id:number;
-    groupname: string;
+    group_name: string;
     creator_id: number;
   }
 
   class Group extends Model implements GroupModelAttributes {
 
    public id! : number;
-   public groupname!: string;
+   public group_name!: string;
    public creator_id!: number;
 
 
@@ -25,13 +25,20 @@ interface GroupModelAttributes {
         foreignKey: 'creator_id',
         as: 'user',
       });
+
+    Group.hasMany(models.GroupMember, {
+        foreignKey: 'group_id',
+        as: 'GroupMember',
+        onDelete: 'CASCADE'
+        
+      });
   }
 
   };
 
   Group.init ( 
     {
-        groupname:{
+        group_name:{
             type: DataTypes.STRING,
             allowNull: false,
           },

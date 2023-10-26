@@ -18,7 +18,7 @@ const protect = async (req: CustomRequest, res: Response, next: NextFunction): P
       req.user = await User.findByPk(decoded.id, {
         attributes: { exclude: ['password'] }, 
       });
-
+ 
       next();
     } catch (error) {
       res.status(401).send('Not authorized, token has failed');
